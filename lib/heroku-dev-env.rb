@@ -1,0 +1,21 @@
+module HerokuDevEnv
+  extend self
+
+  def load_env(filename)
+    if File.exist?(filename)
+      File.readlines(filename).each do |line|
+        name, value = line.split('=', 2)
+        if name && value
+          ENV[name.strip] = value.strip
+        end
+      end
+    end
+  end
+
+end
+
+HerokuDevEnv.load_env('.env')
+
+if defined?(Rails) && Rails.env
+  HerokuDevEnv.load_env(".env_#{Rails.env}")
+end
