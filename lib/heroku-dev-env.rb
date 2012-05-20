@@ -3,11 +3,8 @@ module HerokuDevEnv
 
   def load_env(filename)
     if File.exist?(filename)
-      File.readlines(filename).each do |line|
-        name, value = line.split('=', 2)
-        if name && value
-          ENV[name.strip] = value.strip
-        end
+      File.readlines(filename).grep(/\A\s*\w+\=/) do |line|
+        ENV.send :[]=, *line.split('=', 2).map(&:strip)
       end
     end
   end
