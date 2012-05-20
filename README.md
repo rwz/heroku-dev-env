@@ -1,12 +1,14 @@
-# Heroku::Dev::Env
+# Heroku Development Environment
 
-TODO: Write a gem description
+Allows you to emulate heroku ENV configuration keys without relying on foreman or adding stuff to your `.bash_profile` or whatever shell you're using.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add these lines to your application's Gemfile:
 
-    gem 'heroku-dev-env'
+    group :development, :test do
+      gem 'heroku-dev-env'
+    end
 
 And then execute:
 
@@ -18,7 +20,11 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Create a file named `.env` in your application root and put your local ENV variables there.
+The gem will load this file on application startup. It will also try to look for file named 
+`.env_#{Rails.env}` if it's Rails. 
+
+You'd also probably want to add `.env` to your `.gitignore`.
 
 ## Contributing
 
